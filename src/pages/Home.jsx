@@ -1,10 +1,8 @@
-import './App.css'
-
-function App() {
+function Home () {
 
   return (
     <div className="text-blue-400">Hello World</div>
   )
 }
 
-export default App
+export default Home
