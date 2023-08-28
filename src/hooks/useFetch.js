@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
 
-export default function useFetch (url) {
+export default function useFetch (url, method = 'GET') {
     let [data, setData] = useState(null);
+    let [postData, setPostData] = useState(null);
     let [loading, setLoading] = useState(false);
     let [error, setError] = useState(false);
     useEffect(() => {
@@ -9,7 +10,14 @@ export default function useFetch (url) {
         let signal = abortController.signal;
 
         setLoading(true);
-        fetch(url, {signal})
+
+        let options = {
+          signal,
+          method
+        }
+
+        let fetchData = () => {
+          fetch(url, options)
           .then(res => {
             if (!res.ok) {
               throw Error('Something went wrong!');
@@ -24,8 +32,24 @@ export default function useFetch (url) {
           .catch(e => {
             setError(e.message);
           })
+        }
+
+        if (method === "POST" && postData) {
+          options = {
+            ...options,
+          headers : {
+            "Content-Type" : "application/json"
+          },
+            body : JSON.stringify(postData)
+          }
+          fetchData()
+        }
+
+        if (method === "GET") {
+          fetchData();
+        }
 
           return () => abortController.abort();
-    }, [url]);
-    return { data, loading, error };
+    }, [url, postData]);
+    return { setPostData, data, loading, error };
 }

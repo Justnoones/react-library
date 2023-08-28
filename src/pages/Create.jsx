@@ -1,20 +1,42 @@
-import React, { useCallback, useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
+import { useNavigate } from 'react-router-dom';
+import useFetch from '../hooks/useFetch';
 
 export default function Create () {
   let [title, setTitle] = useState("");
   let [description, setDescription] = useState("");
   let [category, setCategory] = useState("");
   let [categories, setCategories] = useState([]);
+  let navigate = useNavigate();
+
+  let { setPostData, data : book } = useFetch("http://localhost:3001/Books", "POST");
 
   let addNewCategory = e => {
     e.preventDefault();
     setCategories(ps => [category, ...ps]);
     setCategory('');
-    console.log(categories);
+  }
+
+  useEffect(() => {
+    if (book) {
+      navigate(`/books/${book.id}`);
+    }
+  }, [book, navigate]);
+
+  let createNewBook = (e) => {
+    e.preventDefault();
+    const id = Math.floor(Math.random() * 200);
+    const newBookData = {
+      id,
+      title,
+      description,
+      categories
+    }
+    setPostData(newBookData);
   }
 
   return (
-    <form className="w-full max-w-lg mx-auto mt-5">
+    <form className="w-full max-w-lg mx-auto mt-5" onSubmit={createNewBook}>
       <div className="flex flex-wrap -mx-3 mb-6">
         <div className="w-full px-3">
           <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="book-title">
