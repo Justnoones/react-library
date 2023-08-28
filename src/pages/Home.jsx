@@ -1,7 +1,14 @@
+import HeroSection from "../components/HeroSection";
+import BookLists from "../components/BookLists";
+
 function Home () {
 
   return (
-    <div className="text-blue-400">Hello World</div>
+    <>
+      <HeroSection />
+      {/* book lists */}
+      <BookLists />
+    </>
   )
 }
 
