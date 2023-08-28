@@ -3,6 +3,8 @@ import Create from '../pages/Create';
 import Search from '../pages/Search';
 import Layout from '../pages/Layouts/Layout';
 import { createBrowserRouter } from "react-router-dom";
+import BookDetail from '../components/BookDetail';
+import NotFound404Page from '../components/NotFound404Page';
 
 const router = createBrowserRouter([
   {
@@ -20,6 +22,14 @@ const router = createBrowserRouter([
       {
         path: "/search",
         element: <Search />
+      },
+      {
+        path: "/books/:id",
+        element: <BookDetail />
+      },
+      {
+        path: "*",
+        element: <NotFound404Page />
       }
     ]
   }
