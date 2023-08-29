@@ -13,6 +13,10 @@ export default function Create () {
 
   let addNewCategory = e => {
     e.preventDefault();
+    if(category && categories.includes(category)) {
+      setCategory("");
+      return;
+    }
     setCategories(ps => [category, ...ps]);
     setCategory('');
   }
