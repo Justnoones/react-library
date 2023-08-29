@@ -9,13 +9,14 @@ export default function Create () {
   let [categories, setCategories] = useState([]);
   let navigate = useNavigate();
 
-  let { setPostData, data : book } = useFetch("http://localhost:3001/Books", "POST");
+  let { setPostData, data : book, loading } = useFetch("http://localhost:3001/Books", "POST");
 
   let addNewCategory = e => {
     e.preventDefault();
     setCategories(ps => [category, ...ps]);
     setCategory('');
   }
+  console.log(loading);
 
   useEffect(() => {
     if (book) {
@@ -81,7 +82,7 @@ export default function Create () {
           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
               <path strokeLinecap="round" strokeLinejoin="round" d="M12 9v6m3-3H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" />
           </svg>
-          <span>Create Book</span>
+          <span>{loading ? "Creating A Book" : "Create Book"}</span>
       </button>
     </form>
   )

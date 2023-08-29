@@ -9,14 +9,13 @@ export default function useFetch (url, method = 'GET') {
         let abortController = new AbortController();
         let signal = abortController.signal;
 
-        setLoading(true);
-
         let options = {
           signal,
           method
         }
 
         let fetchData = () => {
+          setLoading(true);
           fetch(url, options)
           .then(res => {
             if (!res.ok) {
