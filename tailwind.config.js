@@ -9,7 +9,9 @@ export default {
   theme: {
     extend: {
       colors: {
-        primary: colors.indigo[600]
+        primary: colors.indigo[600],
+        dbg: '#05061B',
+        dbcard: "#070E27"
       }
     },
   },

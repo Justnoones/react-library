@@ -20,16 +20,18 @@ const ThemeContextProvider = ({ children }) => {
         theme: "light"
     });
 
-    let changeTheme = () => {
+    let changeTheme = (value) => {
         dispath({
             type: "CHANGE_THEME",
-            payload: "dark"
+            payload: value
         });
 
     };
 
+    const isDark = state.theme === "dark";
+
     return (
-        <ThemeContext.Provider value={{ ...state, changeTheme }}>
+        <ThemeContext.Provider value={{ ...state, changeTheme, isDark }}>
             {children}
         </ThemeContext.Provider>
     )

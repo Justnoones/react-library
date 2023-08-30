@@ -3,6 +3,7 @@ import useFetch from '../hooks/useFetch'
 import { useParams } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import gojo from '../assets/download.jpg';
+import useTheme from '../hooks/useTheme';
 
 export default function BookDetail () {
   let param = useParams();
@@ -17,8 +18,11 @@ export default function BookDetail () {
       }, 2000)
     }
   }, [error, navigate]);
+
+  let { isDark } = useTheme();
+
   return (
-    <div>
+    <div className='h-screen'>
       {error && <p>{error}</p>}
       {loading && <p>loading ...</p>}
       {book &&
@@ -27,13 +31,13 @@ export default function BookDetail () {
             <img src={gojo} className='w-[75%]' />
           </div>
           <div className='space-y-3'>
-            <h1 className='text-3xl font-bold'>{book.title}</h1>
+            <h1 className={`text-3xl font-bold ${isDark && "text-white"}`}>{book.title}</h1>
             <div className='space-x-3'>
               {book.categories.map(category => (
                 <span key={category} className='bg-blue-500 text-white rounded-lg py-1 px-2 text-sm'>{category}</span>
               ))}
             </div>
-            <p>{book.description}</p>
+            <p className={`${isDark && "text-white"}`}>{book.description}</p>
           </div>
         </div>
       }
